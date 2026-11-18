@@ -1,0 +1,533 @@
+/* ------------------------------------------------------------------ */
+/*  Interactive Romantic Bulletin Styles (/new-msgs)                  */
+/* ------------------------------------------------------------------ */
+
+.newmsgs-hero {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.newmsgs-kicker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 120, 180, 0.12);
+  border: 1px solid rgba(255, 180, 220, 0.25);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #ffb4dc;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.kicker-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff7da7;
+  box-shadow: 0 0 10px #ff7da7;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+.newmsgs-title {
+  font-family: "Caveat", cursive;
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  font-weight: 400;
+  color: #ffe6f3;
+  margin: 0 0 8px;
+  text-shadow: 0 0 24px rgba(255, 120, 180, 0.28);
+  line-height: 1;
+}
+
+.newmsgs-subtitle {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1rem;
+  max-width: 580px;
+  margin: 0 auto 20px;
+  line-height: 1.5;
+}
+
+/* Tabs */
+.newmsgs-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.newmsgs-tab-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.newmsgs-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.newmsgs-tab-btn.is-active {
+  background: linear-gradient(135deg, rgba(233, 89, 149, 0.35) 0%, rgba(200, 50, 118, 0.45) 100%);
+  color: #fff;
+  border-color: rgba(255, 180, 220, 0.4);
+  box-shadow: 0 0 16px rgba(233, 89, 149, 0.3);
+}
+
+/* Wax Envelope Card */
+.wax-envelope-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(38, 16, 32, 0.7) 0%, rgba(20, 8, 18, 0.8) 100%);
+  border: 1px solid rgba(255, 160, 210, 0.25);
+  border-radius: 20px;
+  padding: 22px 26px;
+  margin-bottom: 22px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.wax-envelope-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 180, 225, 0.4);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 120, 180, 0.2);
+}
+
+.wax-envelope-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.wax-seal-stamp {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffcae5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.wax-hint {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.wax-envelope-inner {
+  max-height: 52px;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.wax-envelope-card.is-opened .wax-envelope-inner {
+  max-height: 220px;
+}
+
+.wax-body {
+  font-family: "Caveat", cursive;
+  font-size: 1.35rem;
+  line-height: 1.45;
+  color: #fff2f8;
+  margin: 0 0 10px;
+}
+
+.wax-signature {
+  display: block;
+  text-align: right;
+  font-size: 0.82rem;
+  color: rgba(255, 180, 220, 0.75);
+  font-style: italic;
+}
+
+/* Note Creator Card */
+.newmsg-creator-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(12px);
+}
+
+.creator-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.creator-tag {
+  color: #ffb4dc;
+  font-weight: 500;
+}
+
+.creator-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: #fff;
+  padding: 12px 14px;
+  font-family: "Caveat", cursive;
+  font-size: 1.25rem;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.creator-textarea:focus {
+  border-color: #ff7da7;
+  box-shadow: 0 0 14px rgba(255, 125, 167, 0.25);
+}
+
+.creator-card-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.quick-emoji-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quick-emoji-chip:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: scale(1.08);
+}
+
+.creator-submit-btn {
+  margin-left: auto;
+  background: linear-gradient(135deg, #e95995, #c83276);
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.86rem;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(210, 45, 120, 0.35);
+}
+
+.creator-submit-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.creator-submit-btn:not(:disabled):hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* Interactive Post Cards */
+.newmsgs-grid-feed {
+  display: grid;
+  gap: 16px;
+}
+
+.newmsg-interactive-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 24px 24px 18px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.22s ease, border-color 0.22s ease;
+  animation: card-in 0.4s ease both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.newmsg-interactive-card:hover {
+  border-color: rgba(255, 180, 220, 0.3);
+  transform: translateY(-2px);
+}
+
+.msg-card-tape {
+  position: absolute;
+  top: -8px;
+  left: 28px;
+  width: 70px;
+  height: 16px;
+  background: rgba(255, 180, 215, 0.3);
+  backdrop-filter: blur(4px);
+  transform: rotate(-3deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.msg-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.msg-author-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ffc2df;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.msg-date-badge {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.msg-body-text {
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.45rem, 3.5vw, 1.85rem);
+  line-height: 1.45;
+  color: #fff;
+  margin: 0 0 14px;
+}
+
+.msg-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.kiss-catch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 120, 180, 0.12);
+  border: 1px solid rgba(255, 180, 220, 0.25);
+  color: #ffe6f2;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.kiss-catch-btn:hover {
+  background: rgba(255, 120, 180, 0.28);
+  border-color: #ff7da7;
+  transform: scale(1.05);
+}
+
+/* Flying Kiss Jar Tab */
+.kissbox-showcase {
+  display: grid;
+  place-items: center;
+  padding: 30px 10px;
+}
+
+.kissbox-card {
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(155deg, rgba(35, 14, 28, 0.85) 0%, rgba(18, 8, 20, 0.95) 100%);
+  border: 1.5px solid rgba(255, 180, 220, 0.3);
+  border-radius: 28px;
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 120, 180, 0.2);
+}
+
+.kiss-orb-wrap {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+}
+
+.kiss-big-trigger {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #ff4d8d, #d12268);
+  font-size: 42px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(233, 40, 110, 0.6);
+  transition: transform 0.15s ease, filter 0.15s ease;
+  z-index: 2;
+}
+
+.kiss-big-trigger:hover {
+  transform: scale(1.12);
+  filter: brightness(1.1);
+}
+
+.kiss-big-trigger:active {
+  transform: scale(0.92);
+}
+
+.kiss-glow-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 180, 220, 0.4);
+  animation: spin 18s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.kissbox-card h2 {
+  font-family: "Caveat", cursive;
+  font-size: 2.6rem;
+  color: #fff;
+  margin: 0 0 10px;
+}
+
+.kissbox-card p {
+  color: rgba(255, 235, 245, 0.75);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0 0 20px;
+}
+
+.kiss-counter-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 180, 220, 0.25);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  color: #ffd6ec;
+  margin-bottom: 24px;
+}
+
+.kiss-counter-badge strong {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-right: 4px;
+}
+
+.kiss-send-btn {
+  background: linear-gradient(135deg, #e95995, #c83276);
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 13px 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 25px rgba(210, 45, 120, 0.5);
+}
+
+.kiss-send-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+/* Sweet Promises Tab */
+.promises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.promise-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+}
+
+.promise-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 180, 220, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.promise-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.promise-card h3 {
+  font-size: 1.25rem;
+  font-family: "Caveat", cursive;
+  color: #ffe6f2;
+  margin: 0 0 8px;
+}
+
+.promise-card p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 16px;
+  flex: 1;
+}
+
+.promise-seal {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ff9ec6;
+}
+
+/* Floating Kisses Container */
+.flying-kiss-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.flying-kiss-bubble {
+  position: absolute;
+  font-size: 28px;
+  user-select: none;
+  animation: fly-and-fade 1.8s cubic-bezier(0.18, 0.89, 0.32, 1.25) forwards;
+  filter: drop-shadow(0 0 12px rgba(255, 120, 180, 0.6));
+}
+
+@keyframes fly-and-fade {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(var(--vx), var(--vy)) scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--vx) * 1.3), calc(var(--vy) - 80px)) scale(0.4);
+  }
+}

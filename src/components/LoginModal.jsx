@@ -316,78 +316,78 @@ export default function LoginModal() {
 
                 <h2>Create Account</h2>
                 <p className="login-desc">
-                  Choose your ID and password. An approval request will be sent to Tej.
+                  Choose your ID and password. Approval request will be sent to Tej.
                 </p>
-
-                <div className="register-info-banner">
-                  <span>🌸 <strong>Already have a key?</strong> Perru (<code>Perru</code>) & Tej (<code>tej</code>) are already set up! Click <strong>Login</strong> above to enter right away.</span>
-                </div>
 
                 {error && <div className="login-error-msg">{error}</div>}
 
                 <form onSubmit={handleRegister} className="login-form">
-                  <div className="login-input-group">
-                    <label className="login-label">User ID</label>
-                    <input
-                      type="text"
-                      className="login-input"
-                      placeholder="Choose an ID"
-                      value={regUser}
-                      onChange={(e) => {
-                        setRegUser(e.target.value);
-                        if (error) setError("");
-                      }}
-                      autoComplete="username"
-                      autoFocus
-                      disabled={loading}
-                    />
+                  <div className="login-form-row">
+                    <div className="login-input-group">
+                      <label className="login-label">User ID</label>
+                      <input
+                        type="text"
+                        className="login-input"
+                        placeholder="Choose ID"
+                        value={regUser}
+                        onChange={(e) => {
+                          setRegUser(e.target.value);
+                          if (error) setError("");
+                        }}
+                        autoComplete="username"
+                        autoFocus
+                        disabled={loading}
+                      />
+                    </div>
+
+                    <div className="login-input-group">
+                      <label className="login-label">Your Name</label>
+                      <input
+                        type="text"
+                        className="login-input"
+                        placeholder="Display Name"
+                        value={regName}
+                        onChange={(e) => {
+                          setRegName(e.target.value);
+                          if (error) setError("");
+                        }}
+                        disabled={loading}
+                      />
+                    </div>
                   </div>
 
-                  <div className="login-input-group">
-                    <label className="login-label">Display Name</label>
-                    <input
-                      type="text"
-                      className="login-input"
-                      placeholder="Your Name"
-                      value={regName}
-                      onChange={(e) => {
-                        setRegName(e.target.value);
-                        if (error) setError("");
-                      }}
-                      disabled={loading}
-                    />
-                  </div>
+                  <div className="login-form-row">
+                    <div className="login-input-group">
+                      <label className="login-label">Email Address</label>
+                      <input
+                        type="email"
+                        className="login-input"
+                        placeholder="Email (for notice)"
+                        value={regEmail}
+                        onChange={(e) => {
+                          setRegEmail(e.target.value);
+                          if (error) setError("");
+                        }}
+                        autoComplete="email"
+                        disabled={loading}
+                      />
+                    </div>
 
-                  <div className="login-input-group">
-                    <label className="login-label">Email Address</label>
-                    <input
-                      type="email"
-                      className="login-input"
-                      placeholder="Email (for approval notification)"
-                      value={regEmail}
-                      onChange={(e) => {
-                        setRegEmail(e.target.value);
-                        if (error) setError("");
-                      }}
-                      autoComplete="email"
-                      disabled={loading}
-                    />
-                  </div>
-
-                  <div className="login-input-group">
-                    <label className="login-label">Password</label>
-                    <input
-                      type="password"
-                      className="login-input"
-                      placeholder="Password (min 3 chars)"
-                      value={regPass}
-                      onChange={(e) => {
-                        setRegPass(e.target.value);
-                        if (error) setError("");
-                      }}
-                      autoComplete="new-password"
-                      disabled={loading}
-                    />
+                    <div className="login-input-group">
+                      <label className="login-label">Password</label>
+                      <input
+                        type="password"
+                        className="login-input"
+                        placeholder="Min 3 chars"
+                        value={regPass}
+                        onChange={(e) => {
+                          setRegPass(e.target.value);
+                          if (error) setError("");
+                        }}
+                        autoComplete="new-password"
+                        disabled={loading}
+                      />
+                    </div>
                   </div>
 
                   {/* Avatar Selector */}

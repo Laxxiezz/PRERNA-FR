@@ -80,26 +80,6 @@ export default function LoginModal() {
     }
   };
 
-  const handleQuickUnlock = async (username, password) => {
-    setLoginUser(username);
-    setLoginPass(password);
-    setLoading(true);
-    setError("");
-
-    try {
-      const res = await login(username, password);
-      if (!res.success) {
-        setError(res.error || "Invalid ID or Password");
-        triggerShake();
-      }
-    } catch {
-      setError("Unable to connect. Please try again.");
-      triggerShake();
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!regUser.trim()) {
@@ -271,54 +251,6 @@ export default function LoginModal() {
                 <p className="login-desc">
                   Enter your credentials to unlock our space.
                 </p>
-
-                {/* THE RIGHT INFO: Quick Keys to Our Space */}
-                <div className="login-keys-arena">
-                  <div className="keys-arena-header">
-                    <span className="keys-icon">🗝️</span>
-                    <span className="keys-title">Keys to Our Space</span>
-                    <span className="keys-bow">୨୧</span>
-                  </div>
-                  <p className="keys-hint-desc">
-                    Tap to unlock directly or use the credentials:
-                  </p>
-
-                  <div className="quick-keys-buttons">
-                    <button
-                      type="button"
-                      className="quick-key-btn key-perru"
-                      onClick={() => handleQuickUnlock("Perru", "12345")}
-                      disabled={loading}
-                      title="Tap to unlock as Perru (Aarri)"
-                    >
-                      <span className="key-btn-avatar">🌸</span>
-                      <div className="key-btn-info">
-                        <strong>Perru (Aarri) ♡</strong>
-                        <small>ID: <code>Perru</code> · Pass: <code>12345</code></small>
-                      </div>
-                      <span className="key-btn-badge">1-Tap Unlock ✨</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      className="quick-key-btn key-tej"
-                      onClick={() => handleQuickUnlock("tej", "12345")}
-                      disabled={loading}
-                      title="Tap to unlock as Tej"
-                    >
-                      <span className="key-btn-avatar">⚡</span>
-                      <div className="key-btn-info">
-                        <strong>Tej</strong>
-                        <small>ID: <code>tej</code> · Pass: <code>12345</code></small>
-                      </div>
-                      <span className="key-btn-badge">1-Tap Unlock ✨</span>
-                    </button>
-                  </div>
-
-                  <div className="keys-arena-divider">
-                    <span>or enter manually</span>
-                  </div>
-                </div>
 
                 {error && <div className="login-error-msg">{error}</div>}
 

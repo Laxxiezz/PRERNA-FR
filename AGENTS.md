@@ -22,8 +22,8 @@ Stack: `React 19 + Vite 8 + JSX + plain CSS + Canvas (requestAnimationFrame) + r
 
 ### Roles
 
-- **User (VoidX3D / Sincere)** — product owner, decides copy, Hogwarts theming, deploys.
-- **Agent (Muse Spark via OpenCode)** — implements, verifies via `npm run build`, commits, pushes, deploys via `vercel --prod --yes` + `vercel alias set`.
+- **User (Laxxie / VoidX3D)** — Professional IT Administrator & Product Owner. Always address him as **Laxxie**. (Girlfriend's name: **Prerna**). Expert with prompts, infrastructure, CLI, and systems.
+- **Agent (Muse Spark via OpenCode / Antigravity)** — implements, verifies via `npm run build`, commits, pushes.
 
 ### Cycle
 

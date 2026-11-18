@@ -1,0 +1,576 @@
+/* ------------------------------------------------------------- */
+/*  CELESTIAL OBSERVATORY & CONSTELLATION MAP (/new-msgs)       */
+/* ------------------------------------------------------------- */
+
+.celestial-observatory-shell {
+  min-height: 100dvh;
+  position: relative;
+  background-color: #030108;
+  color: #fff;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Stargazer Interactive Viewport */
+.astronomy-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  cursor: grab;
+  overflow: hidden;
+}
+
+.astronomy-viewport:active {
+  cursor: grabbing;
+}
+
+/* Deep Space Nebula Gradients */
+.deep-space-nebula {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.nebula-cloud {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: floatNebula 20s infinite alternate ease-in-out;
+}
+
+.cloud-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.45) 0%, rgba(139, 92, 246, 0) 70%);
+  top: 10%;
+  left: 15%;
+}
+
+.cloud-2 {
+  width: 750px;
+  height: 750px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(56, 189, 248, 0) 70%);
+  bottom: 5%;
+  right: 10%;
+  animation-duration: 25s;
+  animation-delay: -5s;
+}
+
+.cloud-3 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, transparent 70%);
+  top: 40%;
+  left: 50%;
+  animation-duration: 18s;
+  animation-delay: -10s;
+}
+
+@keyframes floatNebula {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.15) translate(30px, -20px); }
+  100% { transform: scale(0.95) translate(-25px, 25px); }
+}
+
+/* Ambient Static Twinkle Stars */
+.background-starfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.static-twinkle-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: starTwinkle infinite ease-in-out;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 0.95; transform: scale(1.3); box-shadow: 0 0 6px rgba(255, 255, 255, 0.9); }
+}
+
+/* Shooting Stars */
+.shooting-star-streak {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 200, 240, 1) 50%, #fff 100%);
+  border-radius: 999px;
+  box-shadow: 0 0 12px #ff85be, 0 0 24px #fff;
+  pointer-events: none;
+  z-index: 5;
+  transform-origin: left center;
+  animation: shootMeteor 1.1s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes shootMeteor {
+  0% { opacity: 0; transform: translate(0, 0) scaleX(0.1); }
+  25% { opacity: 1; transform: translate(30px, 20px) scaleX(1); }
+  100% { opacity: 0; transform: translate(240px, 160px) scaleX(0.4); }
+}
+
+/* Transformed Constellation Map Layer */
+.constellation-transform-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  transform-origin: center center;
+}
+
+/* SVG Lines linking stars */
+.constellation-svg-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.constellation-line {
+  transition: all 0.4s ease;
+}
+
+.constellation-line.is-illuminated {
+  filter: drop-shadow(0 0 6px #ff70a6);
+}
+
+/* Major Interactive Star Node */
+.star-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+  outline: none;
+}
+
+.star-node:hover {
+  transform: translate(-50%, -50%) scale(1.25);
+  z-index: 10;
+}
+
+.star-node.is-selected-star {
+  transform: translate(-50%, -50%) scale(1.35);
+  z-index: 12;
+}
+
+/* Outer Glow Halo */
+.star-halo {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--star-color, #ff70a6) 0%, transparent 70%);
+  opacity: 0.4;
+  animation: haloPulse 3s infinite ease-in-out;
+}
+
+@keyframes haloPulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.3; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+/* Core Star Orb */
+.star-core {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 16px var(--star-color, #ff70a6), 0 0 32px var(--star-color, #ff70a6);
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.star-node.is-selected-star .star-core {
+  width: 19px;
+  height: 19px;
+  border-color: #fff;
+  box-shadow: 0 0 25px #fff, 0 0 45px var(--star-color, #ff70a6);
+}
+
+.star-flare {
+  position: absolute;
+  inset: -6px;
+  border: 1px dashed rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: rotateFlare 8s linear infinite;
+}
+
+@keyframes rotateFlare {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Floating Starlight Badge */
+.star-label-pill {
+  margin-top: 8px;
+  background: rgba(10, 4, 16, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+}
+
+.star-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.star-node.is-selected-star .star-label-pill {
+  border-color: var(--star-color, #ff70a6);
+  color: #fff;
+  background: rgba(26, 8, 30, 0.9);
+  box-shadow: 0 0 15px rgba(255, 112, 166, 0.4);
+}
+
+/* ------------------------------------------------------------- */
+/*  Observatory HUD Overlay                                      */
+/* ------------------------------------------------------------- */
+
+.observatory-hud {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.hud-title-card {
+  pointer-events: auto;
+  background: rgba(15, 6, 22, 0.75);
+  border: 1px solid rgba(255, 175, 215, 0.22);
+  border-radius: 20px;
+  padding: 18px 24px;
+  backdrop-filter: blur(16px);
+  max-width: 460px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+}
+
+.hud-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  color: #ff9ec4;
+  margin-bottom: 6px;
+}
+
+.live-orb {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff5592;
+  box-shadow: 0 0 10px #ff5592;
+  animation: pulse-dot 1.8s infinite ease-in-out;
+}
+
+.hud-heading {
+  font-family: "Caveat", cursive;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 400;
+  color: #fff2f8;
+  margin: 0 0 6px;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(255, 112, 166, 0.4);
+}
+
+.hud-subheading {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.hud-controls-group {
+  pointer-events: auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.hud-action-btn.wish-btn {
+  background: linear-gradient(135deg, rgba(235, 87, 142, 0.35) 0%, rgba(139, 92, 246, 0.45) 100%);
+  border: 1px solid rgba(255, 175, 215, 0.45);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(235, 87, 142, 0.3);
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+}
+
+.hud-action-btn.wish-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(235, 87, 142, 0.6);
+  border-color: #fff;
+}
+
+/* Zoom Controls */
+.hud-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(15, 6, 22, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 4px 10px;
+  backdrop-filter: blur(14px);
+}
+
+.zoom-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.zoom-level {
+  font-family: monospace;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.8);
+  min-width: 44px;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------- */
+/*  Bottom Celestial Memory Orbit Card                           */
+/* ------------------------------------------------------------- */
+
+.celestial-card {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(100vw - 32px), 820px);
+  background: linear-gradient(145deg, rgba(22, 9, 28, 0.88) 0%, rgba(12, 4, 18, 0.94) 100%);
+  border: 1px solid rgba(255, 175, 215, 0.35);
+  border-radius: 24px;
+  padding: 20px 24px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 112, 166, 0.2);
+  z-index: 25;
+  pointer-events: auto;
+  animation: slideCardUp 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+@keyframes slideCardUp {
+  from { opacity: 0; transform: translate(-50%, 25px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.celestial-card-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+@media (max-width: 680px) {
+  .celestial-card-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .celestial-photo-frame {
+    max-height: 160px;
+  }
+  .observatory-hud {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Left Photo Viewport */
+.celestial-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #08030c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.celestial-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.celestial-card:hover .celestial-image {
+  transform: scale(1.04);
+}
+
+.celestial-category-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffcae5;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+}
+
+/* Astro Frame Corners */
+.frame-corner {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: rgba(255, 200, 235, 0.6);
+  pointer-events: none;
+}
+.frame-corner.c-tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
+.frame-corner.c-tr { top: 6px; right: 6px; border-top: 2px solid; border-right: 2px solid; }
+.frame-corner.c-bl { bottom: 6px; left: 6px; border-bottom: 2px solid; border-left: 2px solid; }
+.frame-corner.c-br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
+
+/* Right Details Column */
+.celestial-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.star-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.star-color-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.celestial-star-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.celestial-date-pill {
+  font-family: monospace;
+  font-size: 0.76rem;
+  color: #ff9ec4;
+  background: rgba(255, 112, 166, 0.12);
+  border: 1px solid rgba(255, 112, 166, 0.25);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.celestial-tagline {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 10px;
+}
+
+.celestial-quote {
+  font-family: "Caveat", cursive;
+  font-size: 1.45rem;
+  line-height: 1.4;
+  color: #ffe6f3;
+  margin: 0 0 8px;
+}
+
+.celestial-elaboration {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0 0 14px;
+}
+
+/* Bottom Stepper & Status */
+.celestial-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+}
+
+.orbit-unlocked-status {
+  font-size: 0.76rem;
+  color: #ffb8dc;
+  letter-spacing: 0.04em;
+}
+
+.nav-orbit-stepper {
+  display: flex;
+  gap: 8px;
+}
+
+.orbit-step-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.orbit-step-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 175, 215, 0.4);
+}

@@ -1,0 +1,112 @@
+/* ------------------------------------------------------------------ */
+/*  Romantic Doodle Rain + Floating Ambient Background               */
+/* ------------------------------------------------------------------ */
+.doodle-rain-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Ambient Doodles fixed on left and right margins */
+.ambient-side-doodles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.side-doodle {
+  position: absolute;
+  font-family: "Caveat", cursive;
+  color: rgba(255, 185, 222, 0.28);
+  user-select: none;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 12px rgba(255, 130, 190, 0.2);
+  animation: doodle-float-sway 8s ease-in-out infinite alternate;
+}
+
+@keyframes doodle-float-sway {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.24; }
+  50% { opacity: 0.45; }
+  100% { transform: translateY(-14px) rotate(4deg); opacity: 0.32; }
+}
+
+/* Left side positions */
+.sd-left-1 { top: 12%; left: 3.5%; font-size: 1.4rem; transform: rotate(-8deg); }
+.sd-left-2 { top: 26%; left: 7%; font-size: 2rem; color: rgba(255, 210, 235, 0.35); }
+.sd-left-3 { top: 48%; left: 2.5%; font-size: 1.25rem; transform: rotate(5deg); }
+.sd-left-4 { top: 68%; left: 5%; font-size: 2.2rem; }
+.sd-left-5 { top: 84%; left: 3%; font-size: 1.3rem; transform: rotate(-5deg); }
+
+/* Right side positions */
+.sd-right-1 { top: 14%; right: 4%; font-size: 1.35rem; transform: rotate(6deg); }
+.sd-right-2 { top: 32%; right: 6%; font-size: 1.9rem; color: rgba(255, 230, 245, 0.4); }
+.sd-right-3 { top: 52%; right: 3%; font-size: 1.45rem; transform: rotate(-4deg); }
+.sd-right-4 { top: 72%; right: 5.5%; font-size: 2.1rem; }
+.sd-right-5 { top: 88%; right: 4%; font-size: 1.4rem; transform: rotate(7deg); }
+
+/* Slow Rain of Gifs, Heads, and Doodles */
+.rain-drops-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.rain-drop {
+  position: absolute;
+  top: -60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  animation-name: slow-gentle-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes slow-gentle-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(55vh) translateX(var(--drift)) rotate(calc(var(--spin) * 0.5));
+  }
+  100% {
+    transform: translateY(115vh) translateX(0) rotate(var(--spin));
+  }
+}
+
+.drop-img {
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(255, 120, 180, 0.35));
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.drop-gif {
+  border-radius: 12px;
+  filter: drop-shadow(0 0 14px rgba(255, 150, 200, 0.45));
+}
+
+.drop-head {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px;
+  border: 1px solid rgba(255, 200, 230, 0.25);
+}
+
+.drop-char {
+  color: #ffcae5;
+  text-shadow: 0 0 10px rgba(255, 140, 195, 0.5);
+  user-select: none;
+}
+
+@media (max-width: 900px) {
+  .ambient-side-doodles {
+    opacity: 0.45;
+  }
+  .sd-left-1, .sd-left-3, .sd-right-1, .sd-right-3 {
+    display: none;
+  }
+}

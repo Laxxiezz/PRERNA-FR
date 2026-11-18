@@ -26,3 +26,6 @@ dist-ssr
 references/
 def-referemce/
 def-reference/
+scratch/
+.cursor/
+

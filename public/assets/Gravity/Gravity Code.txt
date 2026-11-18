@@ -1,0 +1,28 @@
+Effect ban gaya, jaisa video me tha waisa hi: “MADE TO MOVE” glyph sand se bana hai, swipe karne par kat ke tukde girte hain, zameen pe tootke sand ban jaate hain, aur wapas jud jaate hain. Click karne par sab letters gir jaate hain aur phir pour back hote hain. Live demo upar published page pe hai.
+
+Maine isko chalaya nahi, sirf syntax check kiya hai. Pehle demo me swipe aur click karke dekh lo, kuch odd lage to batao.
+
+Apne project me lagane ke liye do files copy karo (dono ek hi folder me, jaise src/components/):
+
+gravityLettersEngine.js: asli effect ka code (canvas aur physics)
+GravityLetters.jsx: React wrapper
+
+Use aise karo:
+
+jsx
+import GravityLetters from "./components/GravityLetters";
+
+<div style={{ height: 420 }}>
+  <GravityLetters
+    text="MADE TO MOVE"
+    colors={["#FFFFFF", "#B19EEF"]} // [letters, sand]
+    grainSize={7}
+    anchor="top"
+  />
+</div>
+
+Props wahi hain jo React Bits docs me the (gravity, cutWidth, erosion, rebuild, healDelay, etc.). Parent ko height dena zaroori hai. Reduced-motion wale users ko simple still text dikhega.
+
+Ye mera apna code hai, React Bits ka original nahi, to physics me chhote-mote farak ho sakte hain. Agar tumhare paas license hai, to asli component npx shadcn@latest add @reactbits-starter/gravity-letters-tw se bhi lag sakta hai.
+
+Ab ye kis project/site me lagana hai aur headline kya rakhni hai? Bata do to colors aur text uske hisaab se set kar dunga.

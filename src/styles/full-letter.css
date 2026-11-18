@@ -1,0 +1,854 @@
+.full-letter-shell {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #050309;
+  color: #f7edf5;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.full-letter-shell::-webkit-scrollbar { display: none; }
+.full-letter-shell .particle-canvas { opacity: 0.22; }
+
+.lotus-letter-page {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 110px, 1540px);
+  margin: 0 auto;
+  padding: 58px 28px 100px;
+}
+
+.lotus-letter-heading {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 24px;
+  animation: lotus-heading-in 900ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes lotus-heading-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lotus-kicker {
+  margin: 0 0 8px;
+  color: rgba(255, 196, 224, .78);
+  font-family: "Caveat", cursive;
+  font-size: 1.3rem;
+  letter-spacing: .06em;
+}
+
+.lotus-letter-heading h1 {
+  margin: 0;
+  font-family: "Caveat", cursive;
+  font-size: clamp(2.8rem, 5vw, 5.3rem);
+  font-weight: 400;
+  line-height: .95;
+  color: #fff5fb;
+  text-shadow: 0 0 24px rgba(255, 135, 193, .24);
+}
+
+.lotus-letter-heading > p:not(.lotus-kicker) {
+  margin: 14px auto 0;
+  max-width: 610px;
+  color: rgba(255,255,255,.65);
+  font-family: "Caveat", cursive;
+  font-size: 1.35rem;
+}
+
+.lotus-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 15px;
+  padding: 7px 13px;
+  border: 1px solid rgba(255, 195, 224, .16);
+  border-radius: 999px;
+  background: rgba(255, 178, 215, .045);
+  color: rgba(255,255,255,.55);
+  font: 500 .78rem/1 "Inter", system-ui, sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.lotus-progress span { color: #ffc2df; }
+
+.lotus-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1540px;
+  margin: 0 auto;
+  isolation: isolate;
+  animation: stage-in 1.15s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes stage-in {
+  from { opacity: 0; transform: scale(.985) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.lotus-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 28px;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: saturate(1.03) contrast(1.02);
+  box-shadow:
+    0 40px 110px rgba(0,0,0,.72),
+    0 0 70px rgba(255, 94, 170, .08);
+}
+
+.lotus-glow {
+  position: absolute;
+  z-index: -1;
+  inset: 9% 18% 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 155, 210, .18), transparent 66%);
+  filter: blur(35px);
+  animation: lotus-breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes lotus-breathe {
+  0%,100% { opacity: .55; transform: scale(.96); }
+  50% { opacity: .95; transform: scale(1.04); }
+}
+
+.petal-hotspot {
+  position: absolute;
+  z-index: 4;
+  padding: 0;
+  border: 0;
+  border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+  background: transparent;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 420ms cubic-bezier(.2,.8,.25,1), filter 350ms ease;
+  overflow: visible;
+}
+
+/* Subtle, organic leaf bloom & warm light on hover */
+.petal-leaf-glow {
+  position: absolute;
+  inset: 2%;
+  border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
+  background: radial-gradient(ellipse at 50% 40%, rgba(255, 220, 240, 0.28) 0%, rgba(255, 140, 200, 0.16) 45%, transparent 72%);
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 350ms ease, transform 420ms cubic-bezier(.2,.8,.25,1), box-shadow 350ms ease;
+  pointer-events: none;
+  filter: blur(4px);
+}
+
+.petal-hotspot:hover,
+.petal-hotspot:focus-visible {
+  /* Gentle natural swell so it feels like the petal expands lightly under the cursor */
+  transform: scale(1.045);
+  filter: drop-shadow(0 0 16px rgba(255, 160, 220, 0.38));
+}
+
+.petal-hotspot:hover .petal-leaf-glow,
+.petal-hotspot:focus-visible .petal-leaf-glow {
+  opacity: 1;
+  transform: scale(1.06);
+  box-shadow: 0 0 24px rgba(255, 150, 215, 0.35);
+}
+
+.petal-hotspot:active {
+  transform: scale(1.06);
+}
+
+.petal-hotspot:focus-visible {
+  outline: 2px solid rgba(255, 224, 240, .85);
+  outline-offset: 4px;
+}
+
+.petal-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(255, 185, 222, 0.55);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  box-shadow: 0 0 14px rgba(255, 140, 200, 0.45);
+  transition: opacity 220ms ease, transform 280ms cubic-bezier(.2,.8,.2,1), border-color 220ms ease;
+  animation: petal-ring-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes petal-ring-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.95; }
+}
+
+.petal-click-hint {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 180, 220, 0.45), rgba(70, 15, 45, 0.6));
+  border: 1px solid rgba(255, 230, 245, 0.6);
+  color: #fff;
+  font-size: 13px;
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow: 0 0 12px rgba(255, 120, 190, 0.6);
+  transition: opacity 200ms ease, transform 280ms cubic-bezier(.2,.8,.2,1), color 200ms ease, border-color 200ms ease, background 200ms ease;
+  backdrop-filter: blur(5px);
+}
+
+.petal-status {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 22px);
+  transform: translateX(-50%) translateY(3px);
+  opacity: 0;
+  color: rgba(255,255,255,.92);
+  font: 600 10px/1 "Inter", system-ui, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0,0,0,.7);
+  transition: opacity 180ms ease, transform 240ms ease;
+}
+
+.petal-hotspot:hover .petal-ring,
+.petal-hotspot:focus-visible .petal-ring {
+  transform: translate(-50%, -50%) scale(1.3);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 22px rgba(255, 150, 220, 0.85);
+}
+
+.petal-hotspot:hover .petal-click-hint,
+.petal-hotspot:focus-visible .petal-click-hint {
+  transform: translate(-50%, -50%) scale(1.2);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.95);
+  background: rgba(180, 40, 110, 0.85);
+  box-shadow: 0 0 18px rgba(255, 180, 230, 0.95);
+}
+
+.petal-hotspot:hover .petal-status,
+.petal-hotspot:focus-visible .petal-status {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.petal-hotspot.is-opened .petal-click-hint {
+  background: radial-gradient(circle, rgba(255, 220, 240, 0.35), rgba(45, 10, 30, 0.5));
+  border-color: rgba(255, 180, 220, 0.4);
+  color: rgba(255, 214, 234, .9);
+}
+
+.lotus-note {
+  position: absolute;
+  z-index: 5;
+  color: rgba(255, 211, 231, .75);
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  line-height: 1.05;
+  pointer-events: none;
+  text-shadow: 0 2px 12px rgba(0,0,0,.55);
+}
+
+.lotus-note-left { left: 4%; top: 37%; transform: rotate(-6deg); }
+.lotus-note-right { right: 4%; top: 32%; transform: rotate(5deg); text-align: right; }
+
+.lotus-sparkle { position: absolute; z-index: 5; color: rgba(255, 214, 235, .9); pointer-events: none; animation: sparkle-float 3s ease-in-out infinite; }
+.sparkle-one { left: 22%; top: 18%; font-size: 24px; }
+.sparkle-two { right: 22%; top: 17%; font-size: 17px; animation-delay: .7s; }
+.sparkle-three { right: 18%; bottom: 19%; font-size: 21px; animation-delay: 1.4s; }
+
+@keyframes sparkle-float {
+  0%,100% { opacity: .45; transform: translateY(0) rotate(0); }
+  50% { opacity: 1; transform: translateY(-7px) rotate(10deg); }
+}
+
+.lotus-complete {
+  width: fit-content;
+  margin: 20px auto 0;
+  padding: 11px 18px;
+  border: 1px solid rgba(255, 195, 224, .18);
+  border-radius: 999px;
+  background: rgba(255, 160, 208, .055);
+  color: rgba(255,255,255,.76);
+  font-family: "Caveat", cursive;
+  font-size: 1.25rem;
+  animation: complete-in 500ms ease both;
+}
+.lotus-complete span { color: #ffb9da; margin: 0 7px; }
+
+@keyframes complete-in { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
+
+.petal-modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 30px;
+  background: rgba(5, 0, 8, .72);
+  backdrop-filter: blur(12px) saturate(.9);
+  animation: backdrop-in 220ms ease both;
+}
+
+@keyframes backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+
+.petal-message-card {
+  position: relative;
+  width: min(650px, 100%);
+  max-height: min(78vh, 720px);
+  overflow: auto;
+  padding: 56px 58px 38px;
+  border: 1px solid rgba(255, 183, 216, .35);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 80% 15%, rgba(255, 189, 220, .23), transparent 22%),
+    linear-gradient(145deg, rgba(255,247,251,.98), rgba(255,226,239,.96));
+  color: #4b243b;
+  box-shadow: 0 35px 100px rgba(0,0,0,.65), 0 0 60px rgba(255, 130, 193, .18);
+  transform-origin: 50% 95%;
+  animation: card-pop 430ms cubic-bezier(.2,.9,.2,1) both;
+  scrollbar-width: thin;
+}
+
+@keyframes card-pop {
+  from { opacity: 0; transform: translateY(24px) scale(.88) rotate(-1deg); }
+  to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+}
+
+
+.message-tape {
+  position: absolute;
+  top: 17px;
+  width: 116px;
+  height: 28px;
+  background: rgba(243, 183, 207, .7);
+  box-shadow: 0 2px 7px rgba(89, 24, 52, .08);
+}
+.message-tape::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 8px, rgba(255,255,255,.22) 9px 10px); }
+.tape-left { left: 28px; transform: rotate(-7deg); }
+.tape-right { right: 28px; transform: rotate(8deg); }
+
+.message-doodle { position: absolute; color: rgba(210, 91, 145, .55); pointer-events: none; }
+.doodle-flower { right: 28px; top: 82px; font-size: 38px; transform: rotate(8deg); }
+.doodle-star { left: 30px; bottom: 82px; font-size: 24px; }
+.doodle-heart { right: 48px; bottom: 45px; font-size: 28px; }
+
+.message-number {
+  margin: 0 0 10px;
+  color: rgba(121, 53, 83, .65);
+  font: 600 .72rem/1.2 "Inter", system-ui, sans-serif;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.petal-message-card h2 {
+  margin: 0;
+  font: 400 clamp(2.7rem, 6vw, 4.5rem)/.95 "Caveat", cursive;
+  color: #5c1f43;
+}
+
+.message-divider {
+  margin: 14px 0 22px;
+  color: #d57ba7;
+  letter-spacing: .08em;
+}
+
+.message-text {
+  margin: 0;
+  font: 400 clamp(1.45rem, 3vw, 1.8rem)/1.55 "Caveat", cursive;
+  color: #5c3449;
+}
+
+.message-signoff {
+  margin: 28px 0 0;
+  color: rgba(92, 31, 67, .68);
+  font: 400 1.22rem/1.2 "Caveat", cursive;
+  text-align: right;
+}
+
+.message-back {
+  display: block;
+  margin: 28px auto 0;
+  padding: 11px 17px;
+  border: 1px solid rgba(111, 42, 78, .2);
+  border-radius: 999px;
+  background: rgba(255,255,255,.45);
+  color: #642447;
+  font: 500 1.12rem/1 "Caveat", cursive;
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.message-back:hover { transform: translateY(-2px) scale(1.02); background: rgba(255,255,255,.75); box-shadow: 0 8px 22px rgba(98, 32, 68, .12); }
+.message-back:active { transform: scale(.97); }
+.message-back:focus-visible { outline: 2px solid #8e3e67; outline-offset: 3px; }
+
+body.letter-modal-open { overflow: hidden; }
+
+@media (max-width: 900px) {
+  .lotus-letter-page { width: min(100% - 34px, 1540px); padding: 34px 0 70px; }
+  .lotus-letter-heading { padding: 0 8px; }
+  .lotus-note { display: none; }
+  .sparkle-one { left: 11%; }
+  .sparkle-two { right: 11%; }
+}
+
+@media (max-width: 640px) {
+  .lotus-letter-page { width: 100%; padding-top: 26px; }
+  .lotus-letter-heading { padding: 0 18px; margin-bottom: 15px; }
+  .lotus-letter-heading h1 { font-size: 3rem; }
+  .lotus-letter-heading > p:not(.lotus-kicker) { font-size: 1.16rem; }
+  .lotus-art { border-radius: 0; }
+  .lotus-stage { overflow: hidden; }
+  .petal-status { display: none; }
+  .petal-click-hint { width: 28px; height: 28px; font-size: 14px; }
+  .petal-ring { width: 36px; height: 36px; }
+  .petal-modal-backdrop { padding: 14px; }
+  .petal-message-card { padding: 50px 25px 28px; border-radius: 18px; max-height: 84vh; }
+  .message-tape { width: 86px; height: 23px; top: 14px; }
+  .tape-left { left: 18px; }
+  .tape-right { right: 18px; }
+  .doodle-flower { right: 17px; top: 66px; font-size: 29px; }
+  .doodle-star { left: 18px; bottom: 68px; }
+  .doodle-heart { right: 24px; bottom: 38px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lotus-letter-heading,
+  .lotus-stage,
+  .lotus-glow,
+  .lotus-sparkle,
+  .petal-modal-backdrop,
+  .petal-message-card { animation: none !important; }
+  .petal-hotspot,
+  .petal-hotspot::before,
+  .petal-hotspot::after,
+  .petal-ring,
+  .petal-click-hint,
+  .petal-status,
+  .message-back { transition: none !important; }
+}
+
+/* Existing shared styles used by the other pages. */
+.home-memory-preview { margin-top: 76px; padding: 30px; border: 1px solid rgba(255,255,255,.10); background: linear-gradient(135deg, rgba(255,255,255,.055), rgba(255,255,255,.018)); border-radius: 20px; display: grid; grid-template-columns: 1fr 240px; gap: 30px; align-items: center; overflow: hidden; }
+.home-memory-preview h2 { font-family: "Caveat", cursive; font-weight: 400; font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: .95; color: #fff; max-width: 480px; }
+.home-memory-copy { max-width: 500px; margin-top: 15px; font-size: 1.1rem; line-height: 1.65; }
+.home-memory-link { display: inline-flex; gap: 10px; align-items: center; margin-top: 22px; color: #d8b7bb; text-decoration: none; border-bottom: 1px solid rgba(216,183,187,.35); padding-bottom: 4px; font-size: 1.1rem; transition: transform .2s ease, border-color .2s ease; }
+.home-memory-link:hover { transform: translateX(4px); border-color: rgba(216,183,187,.8); }
+.home-memory-stack { height: 250px; position: relative; }
+.home-memory-img { position: absolute; width: 145px; height: 195px; object-fit: cover; padding: 7px 7px 25px; background: #eee8de; box-shadow: 0 18px 40px rgba(0,0,0,.4); transition: transform .3s ease; }
+.home-memory-img-0 { left: 0; top: 32px; transform: rotate(-8deg); }
+.home-memory-img-1 { left: 55px; top: 5px; transform: rotate(3deg); z-index: 2; }
+.home-memory-img-2 { right: 0; top: 48px; transform: rotate(9deg); z-index: 1; }
+.home-memory-preview:hover .home-memory-img-0 { transform: rotate(-11deg) translateY(-4px); }
+.home-memory-preview:hover .home-memory-img-1 { transform: rotate(0) translateY(-7px); }
+.home-memory-preview:hover .home-memory-img-2 { transform: rotate(12deg) translateY(-4px); }
+@media (max-width: 640px) { .home-memory-preview { grid-template-columns: 1fr; padding: 24px; } .home-memory-stack { height: 210px; width: 230px; margin: 0 auto; } }
+
+/* Petal controls are anchored to the actual petal centers in the supplied artwork. */
+.petal-hotspot {
+  transform-origin: 50% 50%;
+}
+
+.petal-hotspot:hover,
+.petal-hotspot:focus-visible {
+  z-index: 8;
+}
+
+/* Keep the OPEN control visually attached to the petal instead of drifting away. */
+.petal-hotspot .petal-click-hint {
+  box-shadow: 0 0 0 0 rgba(255, 185, 220, 0);
+}
+
+.petal-hotspot:hover .petal-click-hint,
+.petal-hotspot:focus-visible .petal-click-hint {
+  box-shadow: 0 0 22px rgba(255, 185, 220, .38), inset 0 0 12px rgba(255,255,255,.12);
+}
+
+/* ============================================================
+   LOTUS GATEKEEPER POPUP & PASSWORD MODAL
+   ============================================================ */
+.lotus-gate-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(5, 3, 9, 0.88);
+  backdrop-filter: blur(16px);
+  animation: gate-fade-in 400ms ease both;
+}
+
+@keyframes gate-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lotus-gate-card {
+  position: relative;
+  max-width: 580px;
+  width: 100%;
+  padding: 48px 40px 42px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(32, 14, 28, 0.94), rgba(16, 8, 18, 0.96));
+  border: 1px solid rgba(255, 180, 220, 0.22);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 45px rgba(255, 130, 195, 0.15);
+  text-align: center;
+  color: #fff;
+  animation: gate-card-in 500ms cubic-bezier(0.18, 0.89, 0.32, 1.28) both;
+}
+
+@keyframes gate-card-in {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.gate-stamp {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(255, 180, 220, 0.12);
+  border: 1px solid rgba(255, 180, 220, 0.3);
+  font: 12px "Inter", system-ui, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffcbe5;
+  margin-bottom: 16px;
+}
+
+.gate-icon {
+  display: block;
+  font-size: 52px;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 16px rgba(255, 140, 200, 0.6));
+  animation: gate-icon-float 3s ease-in-out infinite;
+}
+
+@keyframes gate-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.lotus-gate-card h2 {
+  font-family: "Caveat", cursive;
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-weight: 400;
+  color: #ffe6f3;
+  margin: 0 0 14px;
+  line-height: 1;
+}
+
+.gate-body {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: rgba(255, 235, 245, 0.82);
+  margin: 0 0 20px;
+}
+
+.gate-quote {
+  font-family: "Caveat", cursive;
+  font-size: 1.35rem;
+  color: #f7b7d6;
+  margin: 0 0 32px;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.gate-unlock-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 15px 36px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e95995, #c83276);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font: 600 1rem/1 system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(210, 45, 120, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+}
+
+.gate-unlock-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 14px 36px rgba(210, 45, 120, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  filter: brightness(1.08);
+}
+
+.gate-unlock-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.gate-btn-arrow {
+  font-size: 1.2rem;
+  transition: transform 200ms ease;
+}
+
+.gate-unlock-btn:hover .gate-btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Password Modal Backdrop */
+.gate-password-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+  animation: gate-fade-in 250ms ease both;
+}
+
+.gate-password-modal {
+  position: relative;
+  max-width: 440px;
+  width: 100%;
+  padding: 34px 28px 28px;
+  border-radius: 22px;
+  background: #190c17;
+  border: 1.5px solid rgba(255, 150, 205, 0.32);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 90, 160, 0.22);
+  color: #fff;
+  animation: gate-card-in 300ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.shake-anim {
+  animation: gate-shake 450ms ease-in-out !important;
+}
+
+@keyframes gate-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-9px); }
+  40%, 80% { transform: translateX(9px); }
+}
+
+.gate-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.gate-lock-icon {
+  font-size: 22px;
+}
+
+.gate-modal-header h3 {
+  margin: 0;
+  font: 600 1.25rem system-ui, sans-serif;
+  color: #ffcae5;
+}
+
+.gate-error-banner {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 75, 110, 0.16);
+  border: 1px solid rgba(255, 100, 130, 0.4);
+  color: #ff9bb5;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin-bottom: 18px;
+  animation: gate-fade-in 200ms ease;
+}
+
+.gate-form label {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 8px;
+  letter-spacing: 0.03em;
+}
+
+.gate-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 180, 220, 0.28);
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  font-size: 1.05rem;
+  outline: none;
+  transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
+}
+
+.gate-form input:focus {
+  border-color: #ff75b5;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 16px rgba(255, 115, 180, 0.35);
+}
+
+.gate-form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
+.gate-cancel-btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 0.92rem;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.gate-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.gate-submit-btn {
+  padding: 10px 22px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #e95995, #c83276);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(210, 45, 120, 0.4);
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.gate-submit-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+/* =========================================================
+   FULL LETTER PASSCODE MODAL: DOODLES, STICKERS & QUICK FILL
+   ========================================================= */
+
+.gate-modal-washi {
+  position: absolute;
+  top: -9px;
+  left: 32px;
+  width: 58px;
+  height: 18px;
+  background: rgba(255, 180, 220, 0.38);
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  transform: rotate(-6deg);
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.gate-modal-flower-sticker {
+  position: absolute;
+  top: -28px;
+  right: -20px;
+  width: 58px;
+  pointer-events: none;
+  transform: rotate(8deg);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+}
+
+.gate-modal-flower-sticker img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gate-modal-doodles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 22px;
+}
+
+.gate-modal-doodles .g-doodle {
+  position: absolute;
+  font-family: "Caveat", cursive;
+  user-select: none;
+  color: rgba(255, 180, 220, 0.38);
+}
+
+.gd-1 { top: 10px; right: 48px; font-size: 1.6rem; transform: rotate(12deg); }
+.gd-2 { bottom: 16px; left: 18px; font-size: 1.5rem; transform: rotate(-8deg); }
+.gd-3 { bottom: 20px; right: 28px; font-size: 1.3rem; color: rgba(253, 224, 71, 0.45); }
+
+.gate-passcode-hint-box {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255, 115, 180, 0.12);
+  border: 1.5px dashed rgba(255, 150, 205, 0.42);
+}
+
+.gate-passcode-hint-box .hint-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-family: "Caveat", cursive;
+  font-size: 1.25rem;
+  color: #ffcae5;
+}
+
+.gate-passcode-hint-box .hint-bow {
+  font-size: 1.35rem;
+  color: #f472b6;
+}
+
+.gate-passcode-hint-box .hint-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.gate-passcode-hint-box .hint-details span {
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.gate-passcode-hint-box .hint-details code {
+  background: rgba(0, 0, 0, 0.45);
+  color: #fed7aa;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-family: ui-monospace, monospace;
+}
+
+.gate-quick-fill-chip {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e11d48, #be123c);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.35);
+  transition: all 0.2s ease;
+}
+
+.gate-quick-fill-chip:hover {
+  transform: translateY(-1px) scale(1.03);
+  filter: brightness(1.12);
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.55);
+}
+
+

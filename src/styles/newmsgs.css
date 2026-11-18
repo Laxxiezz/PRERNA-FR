@@ -1,0 +1,364 @@
+/* ------------------------------------------------------------------ */
+/*  HOME PAGE & FEED STYLES (src/styles/newmsgs.css)                  */
+/* ------------------------------------------------------------------ */
+
+.full-letter-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.home-inner-container {
+  max-width: 860px;
+  width: 100%;
+  padding: 48px 24px 100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Home Header Section */
+.home-header-section {
+  text-align: left;
+  margin-bottom: 26px;
+  animation: heroTextFade 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes heroTextFade {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.home-kicker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 120, 180, 0.12);
+  border: 1px solid rgba(255, 180, 220, 0.25);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #ffb4dc;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+
+.home-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff5592;
+  box-shadow: 0 0 10px #ff5592;
+  animation: homePulseDot 2s infinite ease-in-out;
+}
+
+@keyframes homePulseDot {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.home-kicker-sparkle {
+  font-size: 0.85rem;
+  animation: sparkleTwinkle 2.5s infinite ease-in-out;
+}
+
+@keyframes sparkleTwinkle {
+  0%, 100% { opacity: 0.7; transform: rotate(-8deg) scale(0.95); }
+  50% { opacity: 1; transform: rotate(8deg) scale(1.15); filter: drop-shadow(0 0 6px #ff7da7); }
+}
+
+/* Hamarii jaghh — Animated Title */
+.home-hero-title {
+  font-family: "Caveat", cursive;
+  font-size: clamp(3.2rem, 7vw, 5.2rem);
+  font-weight: 400;
+  color: #fff2f8;
+  margin: 0 0 8px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 25px rgba(255, 120, 180, 0.35);
+  background: linear-gradient(135deg, #ffffff 0%, #ffe6f3 50%, #ffb8dc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGlow 6s infinite ease-in-out alternate;
+}
+
+@keyframes shimmerGlow {
+  0% { filter: drop-shadow(0 0 12px rgba(255, 120, 180, 0.3)); }
+  100% { filter: drop-shadow(0 0 28px rgba(255, 120, 180, 0.75)); }
+}
+
+.home-quote-line {
+  font-family: "Caveat", cursive;
+  font-size: 1.45rem;
+  color: rgba(255, 235, 245, 0.82);
+  margin: 0 0 14px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.home-quote-marks {
+  color: #ff7da7;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 2px;
+}
+
+.home-quote-author {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 1.15rem;
+  color: #ffb4dc;
+  opacity: 0.9;
+}
+
+/* Hogwarts Houses Strip */
+.hp-houses-strip {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.hp-house {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.hp-house:hover {
+  transform: scale(1.4);
+}
+
+.hp-house.gryffindor { background: #740001; box-shadow: 0 0 8px #d3a625; }
+.hp-house.hufflepuff { background: #e3a000; box-shadow: 0 0 8px #fff; }
+.hp-house.ravenclaw { background: #0e1a40; box-shadow: 0 0 8px #946b2d; }
+.hp-house.slytherin { background: #1a472a; box-shadow: 0 0 8px #aaaaaa; }
+
+/* ------------------------------------------------------------------ */
+/*  LOVE COUNTER CARD                                                 */
+/* ------------------------------------------------------------------ */
+.love-counter {
+  background: linear-gradient(145deg, rgba(32, 14, 28, 0.82) 0%, rgba(16, 7, 18, 0.9) 100%);
+  border: 1px solid rgba(255, 180, 220, 0.3);
+  border-radius: 22px;
+  padding: 22px 28px;
+  margin-top: 14px;
+  margin-bottom: 22px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 120, 180, 0.15);
+  animation: counterCardIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes counterCardIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.love-counter-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #ffcae5;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+
+.love-counter-heart {
+  font-size: 1.25rem;
+  animation: heartPulseBeat 1.4s infinite cubic-bezier(0.21, 0.61, 0.35, 1);
+  display: inline-block;
+}
+
+@keyframes heartPulseBeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.3); filter: drop-shadow(0 0 8px #ff4d8d); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.22); filter: drop-shadow(0 0 6px #ff4d8d); }
+  70% { transform: scale(1); }
+}
+
+.love-counter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.love-counter-cell {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 180, 220, 0.15);
+  border-radius: 14px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.love-counter-cell:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 180, 220, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.love-counter-cell strong {
+  font-family: monospace;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 0 16px rgba(255, 120, 180, 0.4);
+}
+
+.love-counter-cell span {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 235, 245, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 6px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  NEW MSGS FEED ON HOME                                             */
+/* ------------------------------------------------------------------ */
+.newmsgs-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 18px 0 24px;
+}
+
+.newmsg-post {
+  background: linear-gradient(145deg, rgba(28, 12, 26, 0.78) 0%, rgba(14, 6, 16, 0.85) 100%);
+  border: 1px solid rgba(255, 180, 220, 0.22);
+  border-radius: 18px;
+  padding: 22px 26px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.newmsg-post::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #ff7da7 0%, #aa1a4c 100%);
+}
+
+.newmsg-post:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 180, 220, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 120, 180, 0.2);
+}
+
+.newmsg-text {
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.45rem, 3.5vw, 1.95rem);
+  line-height: 1.4;
+  color: #fff2f8;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.letter-muted {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 235, 245, 0.55);
+  letter-spacing: 0.04em;
+}
+
+/* ------------------------------------------------------------------ */
+/*  HOME DOODLES LAYER                                                */
+/* ------------------------------------------------------------------ */
+.home-doodles-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.home-doodle {
+  position: absolute;
+  color: rgba(255, 180, 220, 0.35);
+  font-size: 1.4rem;
+  animation: doodleFloat 14s infinite ease-in-out alternate;
+}
+
+.hd-1 { top: 12%; left: 8%; animation-duration: 16s; }
+.hd-2 { top: 28%; right: 10%; animation-duration: 12s; animation-delay: -3s; }
+.hd-3 { top: 55%; left: 6%; font-size: 1.1rem; animation-duration: 18s; animation-delay: -5s; }
+.hd-4 { top: 72%; right: 8%; animation-duration: 14s; animation-delay: -2s; }
+.hd-5 { top: 85%; left: 14%; animation-duration: 15s; }
+.hd-6 { top: 40%; left: 3%; animation-duration: 19s; animation-delay: -7s; }
+.hd-7 { top: 18%; right: 18%; font-size: 1rem; animation-duration: 13s; }
+
+@keyframes doodleFloat {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.25; }
+  50% { transform: translateY(-16px) rotate(8deg); opacity: 0.5; }
+  100% { transform: translateY(12px) rotate(-8deg); opacity: 0.3; }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .home-inner-container {
+    padding: 28px 16px 90px;
+  }
+  .love-counter-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .home-memory-preview {
+    grid-template-columns: 1fr;
+  }
+  .home-top-bar {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+}
+
+/* Logout Button Hover Effects */
+.home-logout-btn {
+  transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.home-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.24) !important;
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.28);
+}
+
+.home-logout-btn:active {
+  transform: translateY(0);
+}
+
+.side-nav-logout:hover {
+  color: #fca5a5 !important;
+  background: rgba(239, 68, 68, 0.2) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3) !important;
+}

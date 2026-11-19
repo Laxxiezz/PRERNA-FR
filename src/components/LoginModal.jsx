@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../lib/AuthContext.jsx";
-import ParticleBackground from "./ParticleBackground.jsx";
+import LoginAmbientBackground from "./LoginAmbientBackground.jsx";
 
 const AVATAR_OPTIONS = [
   { id: "lotus", label: "Lotus", icon: "🌸", bg: "#740001" },
@@ -139,22 +139,7 @@ export default function LoginModal() {
 
   return (
     <div className="login-gate-overlay" role="dialog" aria-modal="true">
-      <ParticleBackground subtle />
-
-      {/* Floating background ambient doodles */}
-      <div className="login-doodles-field" aria-hidden="true">
-        <span className="login-doodle-item d-text-1">for my perru ♡</span>
-        <span className="login-doodle-item d-text-2">our secret haven 🗝️</span>
-        <span className="login-doodle-item d-text-3">shhh... knock twice 🌸</span>
-        <span className="login-doodle-item d-text-4">always & forever ✦</span>
-        <span className="login-doodle-item d-sym-1">୨୧</span>
-        <span className="login-doodle-item d-sym-2">♡</span>
-        <span className="login-doodle-item d-sym-3">✦</span>
-        <span className="login-doodle-item d-sym-4">❀</span>
-        <span className="login-doodle-item d-sym-5">✧</span>
-        <span className="login-doodle-item d-sym-6">˚</span>
-        <span className="login-doodle-item d-sym-7">— ♡ —</span>
-      </div>
+      <LoginAmbientBackground />
 
       <div className={`login-gate-card ${isShaking ? "shake-anim" : ""}`}>
         {/* Washi tapes on card corners */}

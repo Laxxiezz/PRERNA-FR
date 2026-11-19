@@ -28,11 +28,11 @@ function createAvatarDataUri(icon, bg = "#3b1e38") {
 export default function LoginModal() {
   const { login, register } = useAuth();
   const [tab, setTab] = useState("login"); // "login" | "register"
-  
+
   // Login state
   const [loginUser, setLoginUser] = useState("");
   const [loginPass, setLoginPass] = useState("");
-  
+
   // Register state
   const [regUser, setRegUser] = useState("");
   const [regName, setRegName] = useState("");
@@ -279,7 +279,7 @@ export default function LoginModal() {
                 </form>
 
                 <div className="login-switch-prompt">
-                  <span>Don't have an ID? </span>
+                  <span>ID nahii hee? </span>
                   <button
                     type="button"
                     className="login-link-btn"
@@ -288,7 +288,7 @@ export default function LoginModal() {
                       setError("");
                     }}
                   >
-                    Register
+                    NEW BANAO
                   </button>
                 </div>
               </>
@@ -326,7 +326,7 @@ export default function LoginModal() {
                     </div>
 
                     <div className="login-input-group">
-                      <label className="login-label">Your Name</label>
+                      <label className="login-label">Aapka Naam</label>
                       <input
                         type="text"
                         className="login-input"
@@ -363,7 +363,7 @@ export default function LoginModal() {
                       <input
                         type="password"
                         className="login-input"
-                        placeholder="Min 3 chars"
+                        placeholder="Min 3 char"
                         value={regPass}
                         onChange={(e) => {
                           setRegPass(e.target.value);
@@ -420,7 +420,7 @@ export default function LoginModal() {
                 </form>
 
                 <div className="login-switch-prompt">
-                  <span>Already have an ID? </span>
+                  <span>Pahele se ID hee? </span>
                   <button
                     type="button"
                     className="login-link-btn"

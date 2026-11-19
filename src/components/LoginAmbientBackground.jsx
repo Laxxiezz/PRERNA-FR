@@ -379,11 +379,11 @@ export default function LoginAmbientBackground() {
       {/* 3. Floating Romantic Hand-Drawn Notes & Aesthetic Symbols */}
       <div className="ambient-doodles-layer">
         <span className="ambient-doodle-item doodle-note-1">for my perru ♡</span>
-        <span className="ambient-doodle-item doodle-note-2">our secret haven 🗝️</span>
-        <span className="ambient-doodle-item doodle-note-3">shhh... knock twice 🌸</span>
-        <span className="ambient-doodle-item doodle-note-4">always & forever ✦</span>
-        <span className="ambient-doodle-item doodle-note-5">to the stars & back ✨</span>
-        <span className="ambient-doodle-item doodle-note-6">you are my favorite thought 💌</span>
+        <span className="ambient-doodle-item doodle-note-2">Na jaane kyaaa mill jayee 🗝️</span>
+        <span className="ambient-doodle-item doodle-note-3">shhh.... That's not what you think for 🌸</span>
+        <span className="ambient-doodle-item doodle-note-4"> Limited & precious ✦</span>
+        <span className="ambient-doodle-item doodle-note-5">11:11 energy ✨</span>
+        <span className="ambient-doodle-item doodle-note-6"> Swaaagataaaam💌</span>
 
         <span className="ambient-doodle-item doodle-sym-1">୨୧</span>
         <span className="ambient-doodle-item doodle-sym-2">♡</span>

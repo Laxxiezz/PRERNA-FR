@@ -356,3 +356,38 @@
   cursor: pointer;
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .admin-container {
+    padding: 24px 14px 110px;
+  }
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 26px;
+    padding-bottom: 18px;
+  }
+  .admin-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .admin-actions {
+    flex-direction: column;
+  }
+  .action-btn {
+    width: 100%;
+    min-height: 42px;
+  }
+  .admin-toast {
+    left: 14px;
+    right: 14px;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    text-align: center;
+  }
+  .admin-restricted-card {
+    margin: 60px 14px;
+    padding: 32px 20px;
+  }
+}
+

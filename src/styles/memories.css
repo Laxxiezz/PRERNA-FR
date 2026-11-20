@@ -997,10 +997,10 @@
 /* Mobile Breakpoints */
 @media (max-width: 760px) {
   .memories-shell {
-    width: min(100% - 24px, 620px);
-    padding-top: 32px;
+    width: min(100% - 20px, 620px);
+    padding: 24px 10px 110px;
   }
-  .hunt-hero h1 { font-size: 68px; }
+  .hunt-hero h1 { font-size: clamp(2.6rem, 10vw, 3.8rem); line-height: 1; }
   .hero-lede { font-size: 14px; }
   .hunt-status { display: block; }
   .hunt-whisper { display: block; margin-top: 12px; }

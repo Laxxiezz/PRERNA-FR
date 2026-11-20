@@ -402,7 +402,7 @@ body.letter-modal-open { overflow: hidden; }
 }
 
 @media (max-width: 640px) {
-  .lotus-letter-page { width: 100%; padding-top: 26px; }
+  .lotus-letter-page { width: 100%; padding: 26px 14px 110px; }
   .lotus-letter-heading { padding: 0 18px; margin-bottom: 15px; }
   .lotus-letter-heading h1 { font-size: 3rem; }
   .lotus-letter-heading > p:not(.lotus-kicker) { font-size: 1.16rem; }

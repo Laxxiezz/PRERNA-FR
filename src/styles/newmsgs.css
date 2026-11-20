@@ -325,17 +325,29 @@
 /* Responsive */
 @media (max-width: 640px) {
   .home-inner-container {
-    padding: 28px 16px 90px;
+    padding: 24px 14px 110px;
   }
   .love-counter-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
   .home-memory-preview {
     grid-template-columns: 1fr;
+    padding: 20px 14px;
   }
   .home-top-bar {
     flex-direction: column;
     align-items: flex-start !important;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-hero-title {
+    font-size: 2.5rem;
+  }
+  .home-quote-line {
+    font-size: 1.25rem;
   }
 }
 

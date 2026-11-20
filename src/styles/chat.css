@@ -479,9 +479,50 @@
 }
 
 @media (max-width: 640px) {
-  .chat-bubble { max-width: 84%; }
+  .chat-bubble { max-width: 88%; }
   .emoji-picker { grid-template-columns: repeat(6, 1fr); }
-  .chat-list { padding: 14px; }
+  .chat-list { padding: 12px 10px; }
+  .chat-header {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  .chat-header-info span:not(.chat-live-badge) {
+    display: none;
+  }
+  .chat-header-info strong {
+    font-size: 0.95rem;
+  }
+  .chat-header-avatar {
+    width: 34px;
+    height: 34px;
+  }
+  .chat-header-nav {
+    gap: 5px;
+  }
+  .chat-nav-link,
+  .chat-theme-btn {
+    width: 32px;
+    height: 32px;
+  }
+  .chat-nav-link svg,
+  .chat-theme-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+  .chat-input-row {
+    padding: 8px 10px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    gap: 6px;
+  }
+  .emoji-toggle,
+  .chat-send {
+    width: 40px;
+    height: 40px;
+  }
+  .chat-input {
+    height: 40px;
+    font-size: 16px;
+  }
 }
 
 .hogwarts-avatar {

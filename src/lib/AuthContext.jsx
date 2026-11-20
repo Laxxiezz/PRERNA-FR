@@ -6,11 +6,11 @@ import { registerDynamicUser } from "../data/users.js";
 const AuthContext = createContext(null);
 const AUTH_STORAGE_KEY = "imsorry_site_auth_user";
 
-// Tej (Admin): ID "tej", Password "12345"
+// Tej (Admin): ID "tej", Password "Tejsuthar-003"
 export const ACCOUNTS = [
   {
     username: "tej",
-    password: "12345",
+    password: "Tejsuthar-003",
     id: "sin",
     role: "admin",
     displayName: "Tej ⚡",

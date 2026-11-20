@@ -3,14 +3,10 @@ import { useAuth } from "../lib/AuthContext.jsx";
 import LoginAmbientBackground from "./LoginAmbientBackground.jsx";
 
 const AVATAR_OPTIONS = [
-  { id: "lotus", label: "Lotus", icon: "🌸", bg: "#740001" },
-  { id: "lightning", label: "Lightning", icon: "⚡", bg: "#1a472a" },
-  { id: "owl", label: "Owl", icon: "🦉", bg: "#0e1a40" },
-  { id: "star", label: "Star", icon: "✨", bg: "#4a154b" },
-  { id: "heart", label: "Heart", icon: "❤️", bg: "#8b1e42" },
-  { id: "moon", label: "Moon", icon: "🌙", bg: "#1f2937" },
-  { id: "butterfly", label: "Butterfly", icon: "🦋", bg: "#0284c7" },
-  { id: "teddy", label: "Teddy", icon: "🧸", bg: "#78350f" },
+  { id: "avatar-1", label: "Avatar 1", src: "/assets/Avatar/1.jpeg" },
+  { id: "avatar-2", label: "Avatar 2", src: "/assets/Avatar/2.jpeg" },
+  { id: "avatar-3", label: "Avatar 3", src: "/assets/Avatar/3.jpeg" },
+  { id: "avatar-4", label: "Avatar 4", src: "/assets/Avatar/4.jpeg" },
 ];
 
 const HOUSES = [
@@ -107,7 +103,7 @@ export default function LoginModal() {
     setError("");
 
     try {
-      const avatarUri = createAvatarDataUri(regAvatar.icon, regAvatar.bg);
+      const avatarUri = regAvatar.src || (regAvatar.icon ? createAvatarDataUri(regAvatar.icon, regAvatar.bg) : "/assets/Avatar/1.jpeg");
       const res = await register({
         username: regUser,
         displayName: regName.trim() || regUser.trim(),
@@ -386,11 +382,16 @@ export default function LoginModal() {
                             key={item.id}
                             type="button"
                             className={`login-avatar-option ${isSelected ? "is-selected" : ""}`}
-                            style={{ backgroundColor: item.bg }}
                             onClick={() => setRegAvatar(item)}
                             title={item.label}
                           >
-                            <span className="avatar-emoji">{item.icon}</span>
+                            <img
+                              src={item.src}
+                              alt={item.label}
+                              className="login-avatar-img"
+                              loading="lazy"
+                            />
+                            {isSelected && <span className="login-avatar-check">✓</span>}
                           </button>
                         );
                       })}

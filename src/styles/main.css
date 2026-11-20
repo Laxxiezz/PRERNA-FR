@@ -1244,13 +1244,14 @@ body {
   z-index: 1000;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: clamp(16px, 3vh, 36px) 16px;
+  align-items: flex-start;
+  padding: max(52px, env(safe-area-inset-top, 52px)) 14px max(36px, env(safe-area-inset-bottom, 36px));
   background: radial-gradient(circle at 50% 50%, rgba(26, 4, 10, 0.95) 0%, rgba(4, 1, 2, 0.98) 100%);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   animation: gate-fade-in 0.3s ease;
 }
 
@@ -1259,7 +1260,7 @@ body {
   width: 100%;
   max-width: 420px;
   margin: auto;
-  padding: clamp(24px, 3.5vh, 32px) clamp(20px, 4vw, 30px);
+  padding: clamp(22px, 3.2vh, 30px) clamp(18px, 4vw, 28px);
   background: linear-gradient(165deg, rgba(20, 5, 10, 0.97) 0%, rgba(6, 2, 4, 0.99) 100%);
   border: 1px solid rgba(225, 29, 72, 0.32);
   border-radius: 24px;
@@ -1360,7 +1361,7 @@ body {
   gap: 10px;
 }
 
-@media (max-width: 440px) {
+@media (max-width: 350px) {
   .login-form-row {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -1728,29 +1729,36 @@ body {
 
 @media (max-width: 580px) {
   .login-gate-overlay {
-    padding: max(24px, env(safe-area-inset-top, 24px)) 14px max(28px, env(safe-area-inset-bottom, 28px));
+    align-items: flex-start;
+    padding: max(48px, env(safe-area-inset-top, 48px)) 12px max(32px, env(safe-area-inset-bottom, 32px));
   }
   .login-card-polaroid {
-    top: -34px;
-    left: -8px;
-    transform: rotate(-6deg) scale(0.82);
+    top: -30px;
+    left: -6px;
+    transform: rotate(-6deg) scale(0.8);
   }
   .login-card-sticker-gif {
-    top: -24px;
-    right: -8px;
-    width: 50px;
+    top: -22px;
+    right: -6px;
+    width: 48px;
   }
   .login-card-bouquet-sticker {
-    bottom: -18px;
-    right: -8px;
-    width: 54px;
+    bottom: -16px;
+    right: -6px;
+    width: 50px;
   }
   .login-gate-card {
-    padding: 30px 18px 26px;
-    margin: 28px auto 20px;
+    padding: 22px 14px 20px;
+    margin: 8px auto 20px;
     width: 100%;
     max-width: 100%;
     border-radius: 20px;
+  }
+  .login-form {
+    gap: 8px;
+  }
+  .login-input {
+    padding: 9px 12px;
   }
 }
 

@@ -4,8 +4,8 @@
 
 A **static, mobile-first** interactive apology website. No backend, no database, no audio — just React + Vite + Canvas + CSS. The entire experience feels like a private message revealed one thought at a time.
 
-**Live:** https://imreallysorry.vercel.app · https://iamreallysorry.vercel.app (same deployment, both aliases)  
-**Repo:** https://github.com/VoidX3D/ImSorry · Vercel project `imreallysorry` (team `playzspreston2-gmailcoms-projects`)
+**Live:** https://perruverse.vercel.app  
+**Repo:** https://github.com/Laxxiezz/PRERNA-FR
 
 ---
 

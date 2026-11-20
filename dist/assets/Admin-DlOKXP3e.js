@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-CbXtAM7H.js";import{E as t}from"./lucide-CI4wQbtA.js";import{r as n,s as r,t as i}from"./vendor-BRFMqUto.js";import{a,d as o,l as s,n as c,p as l,t as u,u as d}from"./firebase-N4OHH5uV.js";import{a as f,n as p,r as m,s as h,t as g}from"./index-Cq7Q6aoZ.js";var _=e(t(),1),v=`tejjinsta003@gmail.com`;function y({toEmail:e,toName:t,username:n,siteUrl:r}){let i=r||(typeof window<`u`?window.location.origin:`https://imreallysorry.vercel.app`),a=`Hey ${t||n} 🌸,
+import{n as e}from"./rolldown-runtime-CbXtAM7H.js";import{E as t}from"./lucide-CI4wQbtA.js";import{r as n,s as r,t as i}from"./vendor-BRFMqUto.js";import{a,d as o,l as s,n as c,p as l,t as u,u as d}from"./firebase-N4OHH5uV.js";import{a as f,n as p,r as m,s as h,t as g}from"./index-DwlIYcYp.js";var _=e(t(),1),v=`tejjinsta003@gmail.com`;function y({toEmail:e,toName:t,username:n,siteUrl:r}){let i=r||(typeof window<`u`?window.location.origin:`https://imreallysorry.vercel.app`),a=`Hey ${t||n} 🌸,
 
 Great news! Tej has reviewed and approved your access request for account @${n}.
 

@@ -10,10 +10,10 @@ const AVATAR_OPTIONS = [
 ];
 
 const HOUSES = [
-  { id: "Gryffindor", label: "Gryffindor 🦁" },
-  { id: "Slytherin", label: "Slytherin 🐍" },
-  { id: "Ravenclaw", label: "Ravenclaw 🦅" },
-  { id: "Hufflepuff", label: "Hufflepuff 🦡" },
+  { id: "Observer", label: "Observer 🔭" },
+  { id: "Excited", label: "Excited ✨" },
+  { id: "Scared", label: "Scared 🫣" },
+  { id: "Happy", label: "Happy 🌸" },
 ];
 
 function createAvatarDataUri(icon, bg = "#3b1e38") {
@@ -398,9 +398,9 @@ export default function LoginModal() {
                     </div>
                   </div>
 
-                  {/* House Selector */}
+                  {/* Vibe / Mood Selector */}
                   <div className="login-input-group">
-                    <label className="login-label">House</label>
+                    <label className="login-label">Current Vibe</label>
                     <div className="login-house-grid">
                       {HOUSES.map((h) => (
                         <button

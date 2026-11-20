@@ -6,21 +6,8 @@ import { registerDynamicUser } from "../data/users.js";
 const AuthContext = createContext(null);
 const AUTH_STORAGE_KEY = "imsorry_site_auth_user";
 
-// Fixed preset accounts:
-// Perru: ID "Perru", Password "12345"
-// Tej (You): ID "tej", Password "12345"
+// Tej (Admin): ID "tej", Password "12345"
 export const ACCOUNTS = [
-  {
-    username: "Perru",
-    password: "12345",
-    id: "anu",
-    role: "perru",
-    displayName: "Perru (Aarri) 🌸",
-    pfp: "/pfp/anu.svg",
-    house: "Gryffindor",
-    status: "approved",
-    approved: true,
-  },
   {
     username: "tej",
     password: "12345",

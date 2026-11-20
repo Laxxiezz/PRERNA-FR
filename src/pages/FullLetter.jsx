@@ -125,7 +125,7 @@ export default function FullLetter() {
       setShowPasswordModal(false);
       setErrorMsg("");
     } else {
-      setErrorMsg("❌ Galat password! Hint: 1234 try karo 🥺");
+      setErrorMsg("❌ Galat passcode! Please try again 🥺");
       setIsShaking(true);
       setTimeout(() => setIsShaking(false), 500);
     }
@@ -198,24 +198,6 @@ export default function FullLetter() {
                   <h3>Security Check</h3>
                 </div>
 
-                {/* THE RIGHT INFO: Passcode hint and 1-tap fill */}
-                <div className="gate-passcode-hint-box">
-                  <div className="hint-header">
-                    <span>🗝️ Secret Passcode</span>
-                    <span className="hint-bow">୨୧</span>
-                  </div>
-                  <div className="hint-details">
-                    <span>Code: <code>1234</code> ♡</span>
-                    <button
-                      type="button"
-                      className="gate-quick-fill-chip"
-                      onClick={() => setPassword("1234")}
-                    >
-                      ✨ Tap to auto-fill 1234
-                    </button>
-                  </div>
-                </div>
-
                 {errorMsg && (
                   <div className="gate-error-banner" role="alert">
                     {errorMsg}
@@ -227,7 +209,7 @@ export default function FullLetter() {
                   <input
                     id="gate-pass-input"
                     type="password"
-                    placeholder="Enter password (e.g. 1234)"
+                    placeholder="Enter secret passcode..."
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     autoFocus

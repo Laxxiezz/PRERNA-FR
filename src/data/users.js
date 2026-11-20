@@ -1,8 +1,7 @@
 // Preset users and dynamic user store
 export const users = [
-  { id: "anu", username: "Perru", displayName: "Perru (Aarri) 🌸", pfp: "/pfp/anu.svg", house: "Gryffindor" },
-  { id: "sin", username: "Sincere", displayName: "Sincere ⚡", pfp: "/pfp/sin.svg", house: "Slytherin" },
-  { id: "guest", username: "Guest", displayName: "Guest", pfp: "/pfp/guest.svg", house: "Hufflepuff" },
+  { id: "sin", username: "Sincere", displayName: "Tej ⚡", pfp: "/pfp/sin.svg", house: "Slytherin" },
+  { id: "guest", username: "Guest", displayName: "Guest", pfp: "/pfp/guest.svg", house: "Observer" },
 ];
 
 const dynamicUsers = new Map();

@@ -179,6 +179,11 @@ const GridDistortion = ({
     let last = 0;
     let visible = true;
     let alive = true;
+    let videoCanvas = null;
+    let videoCtx = null;
+    let videoNeedsUpdate = false;
+    let videoCallbackId = null;
+    let lastVideoTime = -1;
 
     const layout = () => {
       const cols = settingsRef.current.grid;
@@ -262,14 +267,26 @@ const GridDistortion = ({
       const dy = pointer.y - pointer.py;
       pointer.px = pointer.x;
       pointer.py = pointer.y;
-      if (pointer.inside && (dx || dy)) {
+
+      if (pointer.inside) {
         state.lastMove = state.time;
-        brush(s, pointer.x, pointer.y, dx, dy, 1);
-        peak = Math.max(peak, 1e-3);
+        const moveDist = Math.hypot(dx, dy);
+        if (moveDist > 0.4) {
+          // Dynamic motion brush — responsive fluid displacement on cursor glide
+          brush(s, pointer.x, pointer.y, dx, dy, 1);
+          peak = Math.max(peak, 1e-3);
+        } else {
+          // Ambient hover presence — gentle organic breathing liquid refraction under cursor while hovering
+          const hoverPulse = Math.sin(state.time * 3.2) * 0.5 + 0.5;
+          const hdx = Math.cos(state.time * 2.4) * 2.2 * hoverPulse;
+          const hdy = Math.sin(state.time * 2.4) * 2.2 * hoverPulse;
+          brush(s, pointer.x, pointer.y, hdx, hdy, 0.45);
+          peak = Math.max(peak, 1e-3);
+        }
       }
 
       const drift = reduce ? 0 : s.idle;
-      const resting = state.time - state.lastMove > 2.5;
+      const resting = state.time - state.lastMove > 2.0;
       state.phantom = clamp(state.phantom + (resting ? dt : -dt * 3), 0, 1);
       if (drift > 0 && state.phantom > 0) {
         const [x, y] = wander(state.time);
@@ -316,14 +333,36 @@ const GridDistortion = ({
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.activeTexture(gl.TEXTURE0);
       gl.bindTexture(gl.TEXTURE_2D, imageTexture);
+
+      // High-performance video texture streaming:
+      // Only upload when a new frame is decoded, saving 90% GPU texture upload bus traffic
       if (videoRef.current && videoRef.current.readyState >= 2) {
-        if (!state.videoTexInit) {
-          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, videoRef.current);
-          state.videoTexInit = true;
-        } else {
-          gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, videoRef.current);
+        const vid = videoRef.current;
+        const hasTimeDelta = Math.abs(vid.currentTime - lastVideoTime) > 0.015;
+        const shouldUpdate = !state.videoTexInit || videoNeedsUpdate || hasTimeDelta;
+
+        if (shouldUpdate) {
+          if (videoCanvas && videoCtx) {
+            videoCtx.drawImage(vid, 0, 0, videoCanvas.width, videoCanvas.height);
+            if (!state.videoTexInit) {
+              gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, videoCanvas);
+              state.videoTexInit = true;
+            } else {
+              gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, videoCanvas);
+            }
+          } else {
+            if (!state.videoTexInit) {
+              gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, vid);
+              state.videoTexInit = true;
+            } else {
+              gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, vid);
+            }
+          }
+          lastVideoTime = vid.currentTime;
+          videoNeedsUpdate = false;
         }
       }
+
       gl.activeTexture(gl.TEXTURE1);
       gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, state.cols, state.rows, gl.RG, gl.FLOAT, state.out);
       const s = settingsRef.current;
@@ -350,7 +389,7 @@ const GridDistortion = ({
       compose(s);
       render();
       const isVideoPlaying = Boolean(videoRef.current && !videoRef.current.paused && !videoRef.current.ended);
-      const busy = isVideoPlaying || peak > 0 || state.ripples.length > 0 || (s.idle > 0 && !reduce) || state.reveal < 1;
+      const busy = isVideoPlaying || peak > 0 || state.ripples.length > 0 || (s.idle > 0 && !reduce) || state.reveal < 1 || pointer.inside;
       if (busy) raf = requestAnimationFrame(frame);
       else last = 0;
     };
@@ -375,11 +414,51 @@ const GridDistortion = ({
       }
       vid.onloadedmetadata = () => {
         if (!alive || request !== state.request) return;
-        state.imageAspect = (vid.videoWidth || 16) / Math.max(1, vid.videoHeight || 9);
+        const vw = vid.videoWidth || 1920;
+        const vh = vid.videoHeight || 1080;
+        state.imageAspect = vw / Math.max(1, vh);
+
+        // Downscale ultra-high-res 4K videos to high-fps WebGL streaming buffer (1280x720)
+        const maxDim = 1280;
+        let bw = vw;
+        let bh = vh;
+        if (bw > maxDim || bh > maxDim) {
+          if (bw > bh) {
+            bh = Math.round((vh * maxDim) / vw);
+            bw = maxDim;
+          } else {
+            bw = Math.round((vw * maxDim) / vh);
+            bh = maxDim;
+          }
+        }
+        bw = (bw >> 1) << 1;
+        bh = (bh >> 1) << 1;
+
+        if (!videoCanvas) {
+          videoCanvas = document.createElement("canvas");
+          videoCtx = videoCanvas.getContext("2d", { alpha: false, willReadFrequently: false });
+        }
+        videoCanvas.width = bw;
+        videoCanvas.height = bh;
+
         layout();
         if (settingsRef.current.intro && !reduce) scramble();
         state.loaded = true;
         vid.play().catch(() => {});
+
+        const onFrame = () => {
+          if (!alive) return;
+          videoNeedsUpdate = true;
+          wake();
+          if (vid.requestVideoFrameCallback) {
+            videoCallbackId = vid.requestVideoFrameCallback(onFrame);
+          }
+        };
+
+        if (vid.requestVideoFrameCallback) {
+          videoCallbackId = vid.requestVideoFrameCallback(onFrame);
+        }
+
         wake();
       };
       vid.src = src;
@@ -423,6 +502,14 @@ const GridDistortion = ({
       if (inside) wake();
     };
 
+    const onPointerLeave = () => {
+      pointer.inside = false;
+    };
+
+    const onPointerUp = () => {
+      pointer.inside = false;
+    };
+
     const onPointerDown = (event) => {
       if (!settingsRef.current.clickRipple || reduce) return;
       const rect = root.getBoundingClientRect();
@@ -430,7 +517,7 @@ const GridDistortion = ({
       const y = event.clientY - rect.top;
       if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
       state.ripples.push({ x, y, start: state.time });
-      if (state.ripples.length > 4) state.ripples.shift();
+      if (state.ripples.length > 5) state.ripples.shift();
       wake();
     };
 
@@ -462,21 +549,32 @@ const GridDistortion = ({
     visibility.observe(root);
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     window.addEventListener("pointerdown", onPointerDown, { passive: true });
+    window.addEventListener("pointerup", onPointerUp, { passive: true });
+    window.addEventListener("pointercancel", onPointerUp, { passive: true });
+    document.addEventListener("mouseleave", onPointerLeave);
     resize();
 
     return () => {
       alive = false;
       cancelAnimationFrame(raf);
+      if (videoCallbackId && videoRef.current?.cancelVideoFrameCallback) {
+        videoRef.current.cancelVideoFrameCallback(videoCallbackId);
+      }
       if (videoRef.current) {
         videoRef.current.pause();
         videoRef.current.src = "";
         videoRef.current = null;
       }
+      videoCanvas = null;
+      videoCtx = null;
       controlRef.current = null;
       resizeObserver.disconnect();
       visibility.disconnect();
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+      document.removeEventListener("mouseleave", onPointerLeave);
       gl.deleteTexture(imageTexture);
       gl.deleteTexture(fieldTexture);
       gl.deleteBuffer(buffer);

@@ -160,11 +160,11 @@ export function AuthProvider({ children }) {
       await setDoc(userDocRef, newUser);
 
       // Do NOT log in immediately!
-      return { 
-        success: true, 
+      return {
+        success: true,
         pending: true,
         username: cleanUser,
-        message: "Account requested successfully! Please wait for Tej to approve your account." 
+        message: "Account requested successfully! Please wait for Tej to approve your account."
       };
     } catch (err) {
       console.error("Firestore register error:", err);

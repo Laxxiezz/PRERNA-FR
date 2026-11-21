@@ -22,21 +22,21 @@ export default function Home() {
           position: "fixed",
           inset: 0,
           zIndex: 0,
-          pointerEvents: "auto",
-          opacity: 0.55,
-          filter: "brightness(0.9) contrast(1.1)",
+          pointerEvents: "none",
+          opacity: 0.6,
+          filter: "brightness(0.92) contrast(1.1)",
         }}
       >
         <GridDistortion
           videoSrc="/assets/colorful.mp4"
-          grid={28}
-          radius={0.25}
-          strength={0.12}
-          relaxation={0.92}
+          grid={32}
+          radius={0.28}
+          strength={0.24}
+          relaxation={0.94}
           mode="push"
-          softness={0.45}
-          chroma={0.15}
-          idle={0.25}
+          softness={0.5}
+          chroma={0.2}
+          idle={0.16}
           clickRipple={true}
           intro={true}
         />
